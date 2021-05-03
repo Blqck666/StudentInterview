@@ -1,0 +1,35 @@
+<div class="container">
+  <h3 mat-dialog-title>Add new Subject</h3>
+
+  <form class="mat-dialog-content" (ngSubmit)="submit" #formControl="ngForm">
+
+    <div class="form">
+      <mat-form-field color="accent">
+        <textarea matInput #input class="form-control" placeholder="SubjectName" [(ngModel)]="data.SubjectName" name="SubjectName" required ></textarea>
+        <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="form">
+      <mat-form-field color="accent">
+        <input matInput #inputstate class="form-control" placeholder="coefficient" [(ngModel)]="data.coefficient" name="coefficient" maxlength="10" required >
+        <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+        <mat-hint align="end">{{inputstate.value?.length || 0}}/10</mat-hint>
+      </mat-form-field>
+    </div>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Affect Teacher</mat-label>
+      <mat-select [(ngModel)]="data.IdTeacher" name="IdTeacher">
+        <mat-option *ngFor="let reg of teacherService.teachers" [value]="reg._id">
+          {{reg.name}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <div mat-dialog-actions>
+      <button mat-button [mat-dialog-close]="1" (click)="confirmAdd()">Add</button>
+      <button mat-button (click)="onNoClick()" tabindex="-1">Cancel</button>
+    </div>
+  </form>
+</div>

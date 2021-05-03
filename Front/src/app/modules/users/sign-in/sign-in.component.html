@@ -1,0 +1,33 @@
+
+<div class="alert" *ngIf="serverErrorMessages">
+  {{serverErrorMessages}}
+</div>
+<div class="login-wrapper" fxLayout="row" fxLayoutAlign="center center">
+
+  <mat-card class="box">
+    <mat-card-header>
+      <mat-card-title>Log in</mat-card-title>
+    </mat-card-header>
+
+    <form class="example-form" #signInForm="ngForm" (ngSubmit)="signInForm.valid && onSubmit(signInForm)" >
+      <mat-card-content>
+        <mat-form-field class="example-full-width">
+          <input matInput placeholder="email" name="email" #email="ngModel" [(ngModel)]="model.email" placeholder="Email" [pattern]="emailRegex" required
+          [ngClass]="{'invalid-textbox' :signInForm.submitted && !email.valid }">
+        </mat-form-field>
+
+        <mat-form-field class="example-full-width">
+          <input matInput placeholder="Password" type="password" name="password" #password="ngModel" [(ngModel)]="model.password" placeholder="Password" required minlength="4"
+          [ngClass]="{'invalid-textbox' :signInForm.submitted && !password.valid }">
+        </mat-form-field>
+      </mat-card-content>
+      <mat-radio-group [(ngModel)]="selectType" aria-label="Select an option" name="selectType">
+        <mat-radio-button [checked]=true value="1">Student</mat-radio-button>
+        <mat-radio-button value="2">Teacher</mat-radio-button>
+      </mat-radio-group>
+
+      <button mat-stroked-button color="accent" class="btn-block" type="submit" value="Sign In">Log in</button>
+    </form>
+  </mat-card>
+
+</div>

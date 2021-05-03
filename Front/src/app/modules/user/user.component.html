@@ -1,0 +1,87 @@
+ <mat-toolbar color="primary">
+  <span class="fill-remaining-space">User Form</span>
+</mat-toolbar>
+
+<div class="container" *ngIf="!post; else forminfo" novalidate>
+  <form #addUserForm="ngForm" (ngSubmit)="addUserForm.valid && onSubmit(addUserForm)" [formGroup]="formGroup" class="form">
+    <mat-form-field class="form-element">
+      <input matInput placeholder="Emailaddress" formControlName="email">
+      <mat-hint>Choose a password of at least eight characters, one uppercase letter and one number</mat-hint>
+      <mat-error *ngIf="!formGroup.controls['email'].valid && formGroup.controls['email'].touched">
+        {{ getErrorEmail() }}
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="form-element">
+      <input matInput placeholder="First Name" formControlName="firstname">
+      <mat-hint>Choose a password of at least eight characters, one uppercase letter and one number</mat-hint>
+      <mat-error *ngIf="!formGroup.controls['firstname'].valid && formGroup.controls['firstname'].touched">
+        {{ titleAlert }}
+      </mat-error>
+    </mat-form-field>
+
+
+    <mat-form-field class="form-element">
+      <input matInput placeholder="Last Name" formControlName="lastname">
+      <mat-hint>Choose a password of at least eight characters, one uppercase letter and one number</mat-hint>
+      <mat-error *ngIf="!formGroup.controls['lastname'].valid && formGroup.controls['lastname'].touched">
+        {{ titleAlert }}
+      </mat-error>
+    </mat-form-field>
+
+
+    <mat-form-field class="form-element">
+      <input matInput placeholder="Password" formControlName="password">
+      <mat-hint>Choose a password of at least eight characters, one uppercase letter and one number</mat-hint>
+      <mat-error *ngIf="!formGroup.controls['password'].valid && formGroup.controls['password'].touched">
+        {{ getErrorPassword() }}
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Sexe</mat-label>
+      <select matNativeControl name="sexe" formControlName="sexe">
+        <option value="Female">Female</option>
+        <option value="Male">Male</option>
+      </select>
+      <mat-error *ngIf="!formGroup.controls['sexe'].valid && formGroup.controls['sexe'].touched">
+        {{ getErrorPassword() }}
+      </mat-error>
+    </mat-form-field>
+    <br>
+    <mat-form-field appearance="fill">
+      <mat-label>Affect Student to a class</mat-label>
+      <mat-select matNativeControl name="IdClass" formControlName="IdClass">
+        <mat-option *ngFor="let reg of teacherService.dataClass" [value]="reg._id">
+          {{reg.Name}}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="!formGroup.controls['IdClass'].valid && formGroup.controls['IdClass'].touched">
+        {{ getErrorPassword() }}
+      </mat-error>
+    </mat-form-field>
+
+    <br>
+    <mat-form-field appearance="fill">
+      <mat-label>Select Scolar Year</mat-label>
+      <select matNativeControl name="ScolarYear" formControlName="ScolarYear">
+        <option value="2020">2019/2020</option>
+        <option value="2021">2020/2021</option>
+      </select>
+      <mat-error *ngIf="!formGroup.controls['ScolarYear'].valid && formGroup.controls['ScolarYear'].touched">
+        {{ getErrorPassword() }}
+      </mat-error>
+    </mat-form-field>
+
+    <div class="form-element">
+      <button mat-raised-button color="primary" type="submit" class="button" [disabled]="!formGroup.valid">Submit Form</button>
+    </div>
+
+  </form>
+</div>
+
+<ng-template #forminfo>
+  <div class="container">
+    {{ post | json }}
+  </div>
+</ng-template>

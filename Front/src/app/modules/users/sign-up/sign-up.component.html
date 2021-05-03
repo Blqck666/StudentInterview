@@ -1,0 +1,39 @@
+
+  <div class="alert" *ngIf="serverErrorMessages">
+    {{serverErrorMessages}}
+  </div>
+
+
+
+  <div class="login-wrapper" fxLayout="row" fxLayoutAlign="center center">
+    <mat-card class="box">
+      <mat-card-header>
+        <mat-card-title>Register Teacher</mat-card-title>
+      </mat-card-header>
+
+      <form class="example-form" #signUpForm="ngForm" (ngSubmit)="signUpForm.valid && onSubmit(signUpForm)">
+
+        <mat-card-content>
+          <mat-form-field class="example-full-width">
+            <input matInput placeholder="Username" type="text" #fullName="ngModel" [(ngModel)]="teacherService.selectedTeacher.name" name="name" placeholder="Full Name"
+            required  [ngClass]="{'invalid-textbox' :signUpForm.submitted && !fullName.valid }">
+          </mat-form-field>
+
+          <mat-form-field class="example-full-width">
+            <input matInput placeholder="Email" type="text" #email="ngModel" [(ngModel)]="teacherService.selectedTeacher.email" name="email" placeholder="Email"
+            required [pattern]="emailRegex"  [ngClass]="{'invalid-textbox' :signUpForm.submitted && !email.valid }">
+          </mat-form-field>
+
+          <mat-form-field class="example-full-width">
+            <input matInput placeholder="Password" type="password" #password="ngModel" [(ngModel)]="teacherService.selectedTeacher.password" name="password" placeholder="Password"
+            minlength="4" required [ngClass]="{'invalid-textbox' :signUpForm.submitted && !password.valid }">
+          </mat-form-field>
+
+
+        </mat-card-content>
+
+        <button mat-stroked-button color="accent" class="btn-block" type="submit" value="Sign Up">Register</button>
+
+      </form>
+    </mat-card>
+  </div>

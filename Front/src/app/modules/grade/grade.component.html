@@ -1,0 +1,75 @@
+<div class="row">
+  <div class="col-md-4">
+    <div class="form-group">
+      <h4>Select Class to add student grade</h4>
+      <mat-form-field appearance="fill">
+        <mat-label>Select Class to add student grade</mat-label>
+        <mat-select (selectionChange)="onDeviceChange($event)" name="IdTeacher">
+          <mat-option *ngFor="let reg of teacherService.dataClass" [value]="reg._id">
+            {{reg.Name}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+  </div>
+</div>
+
+<mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+  <!-- Position Column -->
+  <ng-container matColumnDef="firstname">
+    <mat-header-cell *matHeaderCellDef> firstname </mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{element.IdStudent.firstname}} </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="lastname">
+    <mat-header-cell *matHeaderCellDef> lastname </mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{element.IdStudent.lastname}} </mat-cell>
+  </ng-container>
+
+  <!-- Name Column -->
+  <ng-container matColumnDef="ScolarYear">
+    <mat-header-cell *matHeaderCellDef> ScolarYear </mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{element.ScolarYear}} </mat-cell>
+  </ng-container>
+
+<!-- Name Column -->
+<ng-container matColumnDef="Subject">
+  <mat-header-cell *matHeaderCellDef> Subject </mat-header-cell>
+  <mat-cell *matCellDef="let element">
+    <mat-form-field appearance="fill">
+      <mat-label>Select Subject</mat-label>
+      <mat-select (selectionChange)="onSubjectChange($event,element)" name="IdSubject" [(value)]="element.IdSubject">
+        <mat-option *ngFor="let reg of teacherService.dataSubject" [value]='reg._id +  "**" +element.IdStudent._id' >
+          {{reg.SubjectName}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+  </mat-cell>
+</ng-container>
+
+<ng-container matColumnDef="Grade">
+  <mat-header-cell *matHeaderCellDef> Grade </mat-header-cell>
+  <mat-cell *matCellDef="let element">
+    <input type="number" [(ngModel)]="element.Grade" matInput placeholder="Grade" name="Grade">
+
+  </mat-cell>
+</ng-container>
+
+
+<!-- actions -->
+<ng-container matColumnDef="action">
+  <mat-header-cell *matHeaderCellDef> action </mat-header-cell>
+
+  <mat-cell *matCellDef="let row; let i=index;">
+    <button mat-icon-button color="accent" (click)="addNew(i, row._id, row.IdStudent._id, row.IdSubject,row.Grade)">
+      <mat-icon aria-label="Edit">edit</mat-icon>
+    </button>
+  </mat-cell>
+
+</ng-container>
+
+
+  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+</mat-table>

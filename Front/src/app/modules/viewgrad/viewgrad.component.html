@@ -1,0 +1,27 @@
+<mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+  <!-- Position Column -->
+  <ng-container matColumnDef="Subject">
+    <mat-header-cell *matHeaderCellDef> Subject </mat-header-cell>
+    <mat-cell *matCellDef="let element">  {{element.IdSubject.SubjectName}} </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="Class">
+    <mat-header-cell *matHeaderCellDef> Class </mat-header-cell>
+    <mat-cell *matCellDef="let element">  {{element.IdClass.Name}} </mat-cell>
+  </ng-container>
+
+  <!-- Name Column -->
+  <ng-container matColumnDef="Grade">
+    <mat-header-cell *matHeaderCellDef> Grade </mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{element.Grade}} </mat-cell>
+  </ng-container>coefficient
+
+   <!-- Name Column -->
+   <ng-container matColumnDef="coefficient">
+    <mat-header-cell *matHeaderCellDef> coefficient </mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{element.IdSubject.coefficient}} </mat-cell>
+  </ng-container>
+
+  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+</mat-table>
